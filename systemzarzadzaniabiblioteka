@@ -1,0 +1,74 @@
+class Library:
+    def __init__(self):
+        self.books = []
+
+    def add_book(self, title, author, year):
+        book = Book(title, author, year, True)
+        self.books.append(book)
+        print(f"ksiazka '{book.title}' zostala dodana do biblioteki.")
+
+    def remove_book(self, title):
+        for book in self.books:
+            if book.title == title:
+                self.books.remove(book)
+                print(f"ksiazka '{book.title}' zostala usunieta z biblioteki.")
+                return
+        print(f"Nie znaleziono ksiazki o tytule '{title}'.")
+
+    def check_availability(self, title):
+        for book in self.books:
+            if book.title == title:
+                if book.available:
+                    print(f"ksiazka '{book.title}' jest dostepna w bibliotece.")
+                else:
+                    print(f"ksiazka '{book.title}' jest aktualnie wypozyczona.")
+                return
+        print(f"Nie znaleziono ksiazki o tytule '{title}'.")
+
+    def display_books(self):
+        if not self.books:
+            print("Biblioteka jest pusta.")
+        else:
+            print("Lista ksiazek w bibliotece:")
+            for book in self.books:
+                print(f"tytul: {book.title}, Autor: {book.author}, Rok wydania: {book.year}, dostepnosc: {'dostepna' if book.available else 'wypozyczona'}")
+
+# Funkcje menu
+def menu():
+    print("==== Biblioteka - Menu ====")
+    print("1. Dodaj ksiazke")
+    print("2. usun ksiazke")
+    print("3. sprawdz dostepnosc ksiazki")
+    print("4. wyswietl ksiazki")
+    print("0. wyjscie")
+
+# Przykładowe użycie aplikacji
+library = Library()
+
+while True:
+    menu()
+    choice = input("Wybierz opcje: ")
+
+    if choice == "1":
+        title = input("Podaj tytul ksiazki: ")
+        author = input("Podaj autora ksiazki: ")
+        year = input("Podaj rok wydania ksiazki: ")
+        library.add_book(title, author, year)
+        print()
+    elif choice == "2":
+        title = input("Podaj tytul ksiazki do usuniecia: ")
+        library.remove_book(title)
+        print()
+    elif choice == "3":
+        title = input("Podaj tytul ksiazki do sprawdzenia dostepnosci: ")
+        library.check_availability(title)
+        print()
+    elif choice == "4":
+        library.display_books()
+        print()
+    elif choice == "0":
+        print("Zamykanie aplikacji...")
+        break
+    else:
+        print("Nieprawidlowy wybor. Sprobuj ponownie.")
+        print()
